@@ -2,17 +2,26 @@ import Post from "../schema/post.js";
 
 export const createPost = async (caption, image, user) => {
     try {
-        const newPost = await Post.create({caption, image, user});
+        const newPost = await Post.create({ caption, image, user });
         return newPost;
     } catch (error) {
         console.log(error)
     }
 }
 
-export const findAllPosts = async () => {
+export const findAllPosts = async (offset, limit) => {
     try {
-        const posts = await Post.create();
+        const posts = await Post.find().sort({ createdAt: -1 }).skip(offset).limit(limit);
         return posts;
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+export const countAllPosts = async() => {
+    try {
+        const count = await Post.countDocuments();
+        return count;
     } catch (error) {
         console.log(error)
     }
