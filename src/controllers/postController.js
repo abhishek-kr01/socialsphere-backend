@@ -15,3 +15,8 @@ export async function createPost(req, res) {
         data: post
     });
 }
+
+export async function getAllPosts(req, res) {
+    // return unimplemented
+    return res.status(501).json({ success: false, message: "Not Implemented" })
+}
