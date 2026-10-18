@@ -18,7 +18,7 @@ export const findAllPosts = async (offset, limit) => {
     }
 }
 
-export const countAllPosts = async() => {
+export const countAllPosts = async () => {
     try {
         const count = await Post.countDocuments();
         return count;
@@ -42,5 +42,14 @@ export const deletePostById = async (id) => {
         return post;
     } catch (error) {
         console.log(error)
+    }
+}
+
+export const updatePostById = async (id, updateObject) => {
+    try {
+        const post = await Post.findByIdAndUpdate(id, updateObject, { new: true });
+        return post;
+    } catch (error) {
+        console.log(error);
     }
 }
