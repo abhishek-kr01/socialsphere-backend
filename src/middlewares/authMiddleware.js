@@ -14,20 +14,24 @@ export const isAuthenticated = async (req, res, next) => {
 
     // verify the token
     try {
-        const response = verifyJWT(token);
+        const payload = verifyJWT(token);
 
-        const doesUserExists = await checkIfUserExists(response.email);
+        const user = await checkIfUserExists(payload.email);
 
-        if (!doesUserExists) {
+        if (!user) {
             return res.status(404).json({
                 success: false,
                 message: "User not found"
-            })
+            });
         }
 
-        req.user = response;
+        req.user = {
+            _id: user._id,
+            email: user.email,
+            username: user.username
+        };
 
-        next();
+        return next();
     } catch (error) {
         return res.status(401).json({
             success: false,
