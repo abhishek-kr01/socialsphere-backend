@@ -10,8 +10,8 @@ const PORT = 3000;
 const app = express();
 
 const limiter = rateLimit({
-    windowMs: 0.5 * 60 * 1000, // 30 seconds
-    max: 5 // limit each IP to 5 request per windowMs
+    windowMs: 1 * 60 * 1000, // 60 seconds
+    max: 10 // limit each IP to 10 request per windowMs
 });
 
 app.use(limiter); // apply rate limiter to all requests
